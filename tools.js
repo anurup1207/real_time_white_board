@@ -12,6 +12,7 @@ let eraserFlag=false;
 
 
 
+
 optionsCont.addEventListener("click",(e)=>{
     // true -> tools show, false -> hide tools
     optionsFlag= !optionsFlag;

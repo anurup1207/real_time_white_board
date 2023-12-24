@@ -3,8 +3,9 @@ canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
 let pencilColor= document.querySelectorAll(".pencil-color");
-let pencilWidthElem=document.querySelector(".pencil-width")
-let eraserWidthElem=document.querySelector(".eraser-width")
+let pencilWidthElem=document.querySelector(".pencil-width");
+let eraserWidthElem=document.querySelector(".eraser-width");
+let download=document.querySelector(".download");
 
 
 let penColor="red";
@@ -34,7 +35,9 @@ canvas.addEventListener("mousedown",(e)=>{
 canvas.addEventListener("mousemove",(e)=>{
     if(mouseDown)drawStroke({
         x:e.clientX,
-        y:e.clientY
+        y:e.clientY,
+        color: eraserFlag ? eraserColor : penColor,
+        width: eraserFlag ? eraserWidth : penWidth
     })
 })
 
@@ -48,6 +51,8 @@ function beginPath(strokeObj){
 }
 
 function drawStroke(strokeObj){
+    tool.strokeStyle=strokeObj.color;
+    tool.lineWidth=strokeObj.width;
     tool.lineTo(strokeObj.x,strokeObj.y);
     tool.stroke();
 }
@@ -92,4 +97,13 @@ eraser.addEventListener("click",(e)=>{
         tool.lineWidth=penWidth;
 
     }
+})
+
+download.addEventListener("click",(e)=>{
+    let url= canvas.toDataURL();
+    
+    let a=document.createElement("a");
+    a.href=url;
+    a.download="board.jpg";
+    a.click();
 })

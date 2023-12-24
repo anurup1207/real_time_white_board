@@ -51,7 +51,8 @@ canvas.addEventListener("mouseup",(e)=>{
     let url=canvas.toDataURL();
     undoRedoTracker.push(url);
     track = undoRedoTracker.length-1;
-    console.log(undoRedoTracker);
+    // console.log(undoRedoTracker);
+    // console.log(track);
 })
 
 function beginPath(strokeObj){

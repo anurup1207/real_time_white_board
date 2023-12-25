@@ -64,7 +64,8 @@ sticky.addEventListener("click",(e)=>{
         <textarea spellcheck="false" ></textarea>
       </div>
     `;
-    createSticky(stickyTemplateHTML);
+    socket.emit("createSticky",stickyTemplateHTML);
+    // createSticky(stickyTemplateHTML);
     
 })
 
@@ -150,3 +151,8 @@ function dragAndDrop(element, event){
           element.onmouseup = null;
         };
 }
+
+socket.on("createSticky",(data)=>{
+  
+  createSticky(data);
+})

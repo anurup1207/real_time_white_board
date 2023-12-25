@@ -55,7 +55,7 @@ eraser.addEventListener("click",(e)=>{
 })
 
 sticky.addEventListener("click",(e)=>{
-    let stickyTemplateHTML=`
+    let data=`
     <div class="header-cont">
         <div class="minimize"></div>
         <div class="remove"></div>
@@ -64,7 +64,7 @@ sticky.addEventListener("click",(e)=>{
         <textarea spellcheck="false" ></textarea>
       </div>
     `;
-    socket.emit("createSticky",stickyTemplateHTML);
+    socket.emit("createSticky",data);
     // createSticky(stickyTemplateHTML);
     
 })
@@ -77,7 +77,7 @@ upload.addEventListener("click",(e)=>{
     input.addEventListener("change",(e)=>{
         let file=input.files[0];
         let url=URL.createObjectURL(file);
-        stickyTemplateHTML=`
+        let data=`
         <div class="header-cont">
             <div class="minimize"></div>
             <div class="remove"></div>
@@ -86,7 +86,8 @@ upload.addEventListener("click",(e)=>{
             <img src="${url}">
           </div>
         `;
-        createSticky(stickyTemplateHTML);
+        socket.emit("createSticky",data);
+        // createSticky(stickyTemplateHTML);
         
     })
 })
@@ -153,6 +154,6 @@ function dragAndDrop(element, event){
 }
 
 socket.on("createSticky",(data)=>{
-  
+
   createSticky(data);
 })

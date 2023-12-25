@@ -15,29 +15,29 @@
   </head>
   <body>
     <div class="options-cont">
-        <i class="fa-solid fa-bars"></i>
+      <i class="fa-solid fa-bars"></i>
     </div>
     <div class="tools-cont scale-tools">
-        <img class="pencil" src="Icons/Pencil.svg" >
-        <img class="eraser" src="Icons/Eraser.svg" >
-        <img class="download" src="Icons/Download.svg" >
-        <img class="upload" src="Icons/Upload.svg" >
-        <img class="sticky" src="Icons/StickyNote.svg" >
-        <img class="redo" src="Icons/Redo.svg" >
-        <img class="undo" src="Icons/Undo.svg" >
+      <img class="pencil" src="Icons/Pencil.svg" />
+      <img class="eraser" src="Icons/Eraser.svg" />
+      <img class="download" src="Icons/Download.svg" />
+      <img class="upload" src="Icons/Upload.svg" />
+      <img class="sticky" src="Icons/StickyNote.svg" />
+      <img class="redo" src="Icons/Redo.svg" />
+      <img class="undo" src="Icons/Undo.svg" />
     </div>
     <div class="pencil-tool-cont">
-        <div class="pencil-width-cont">
-            <input type="range" min="2" max="10" value="3" class="pencil-width">
-        </div>
-        <div class="pencil-color-cont">
-            <div class="black pencil-color"></div>
-            <div class="blue pencil-color"></div>
-            <div class="red pencil-color"></div>
-        </div>
+      <div class="pencil-width-cont">
+        <input type="range" min="2" max="10" value="3" class="pencil-width" />
+      </div>
+      <div class="pencil-color-cont">
+        <div class="black pencil-color"></div>
+        <div class="blue pencil-color"></div>
+        <div class="red pencil-color"></div>
+      </div>
     </div>
     <div class="eraser-tool-cont">
-      <input type="range" min="2" max="10" value="3" class="eraser-width">
+      <input type="range" min="2" max="10" value="3" class="eraser-width" />
     </div>
     <!-- <div class="sticky-cont">
       <div class="header-cont">
@@ -50,6 +50,14 @@
     </div> -->
 
     <canvas></canvas>
+    <script
+      src="https://cdn.socket.io/4.7.2/socket.io.min.js"
+      integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      let socket= io.connect("http://localhost:3000");
+    </script>
     <script src="./tools.js"></script>
     <script src="./canvas.js"></script>
   </body>

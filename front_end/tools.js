@@ -55,16 +55,18 @@ eraser.addEventListener("click",(e)=>{
 })
 
 sticky.addEventListener("click",(e)=>{
+    
+    
     let data=`
     <div class="header-cont">
         <div class="minimize"></div>
         <div class="remove"></div>
       </div>
       <div class="note-cont">
-        <textarea spellcheck="false" ></textarea>
+        <textarea spellcheck="false" class="textarea"></textarea>
       </div>
     `;
-    socket.emit("createSticky",data);
+    socket.emit("createSticky1",data);
     // createSticky(stickyTemplateHTML);
     
 })
@@ -86,7 +88,7 @@ upload.addEventListener("click",(e)=>{
             <img src="${url}">
           </div>
         `;
-        socket.emit("createSticky",data);
+        socket.emit("createSticky1",data);
         // createSticky(stickyTemplateHTML);
         
     })
@@ -100,6 +102,7 @@ function createSticky(stickyTemplateHTML){
     document.body.appendChild(stickyCont);
     let minimize=stickyCont.querySelector(".minimize");
     let remove=stickyCont.querySelector(".remove");
+    
     noteActions(minimize,remove,stickyCont);
     stickyCont.onmousedown = function(event) {
        dragAndDrop(stickyCont,event) 
@@ -108,6 +111,32 @@ function createSticky(stickyTemplateHTML){
       stickyCont.ondragstart = function() {
         return false;
       };
+}
+
+function createSticky1(stickyTemplateHTML){
+  let stickyCont= document.createElement("div");
+  stickyCont.setAttribute("class","sticky-cont");
+  stickyCont.innerHTML=stickyTemplateHTML;
+
+  document.body.appendChild(stickyCont);
+  let minimize=stickyCont.querySelector(".minimize");
+  let remove=stickyCont.querySelector(".remove");
+  let textarea=stickyCont.querySelector(".textarea");
+  textarea.addEventListener("input",(e)=>{
+    let data=e.target.value;
+    socket.emit('textareaContent',data);
+  })
+  socket.on('updateContent', function(data) {
+    textarea.value = data;
+  });
+  noteActions(minimize,remove,stickyCont);
+  stickyCont.onmousedown = function(event) {
+     dragAndDrop(stickyCont,event) 
+    };
+    
+    stickyCont.ondragstart = function() {
+      return false;
+    };
 }
 
 function noteActions(minimize,remove,stickyCont){
@@ -157,3 +186,8 @@ socket.on("createSticky",(data)=>{
 
   createSticky(data);
 })
+socket.on("createSticky1",(data)=>{
+  
+  createSticky1(data);
+})
+

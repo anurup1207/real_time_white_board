@@ -1,4 +1,4 @@
-const { log } = require("console");
+// const { log } = require("console");
 const express=require("express");
 const socket=require("socket.io");
 
@@ -30,5 +30,11 @@ io.on("connection",(socket)=>{
 
     socket.on("createSticky",(data)=>{
         io.sockets.emit("createSticky",data);
+    })
+    socket.on("createSticky1",(data)=>{
+        io.sockets.emit("createSticky1",data);
+    })
+    socket.on("textareaContent",(data)=>{
+        io.sockets.emit("updateContent",data);
     })
 })

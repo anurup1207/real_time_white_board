@@ -26,6 +26,7 @@
       <img class="sticky" src="Icons/StickyNote.svg" />
       <img class="redo" src="Icons/Redo.svg" />
       <img class="undo" src="Icons/Undo.svg" />
+      
     </div>
     <div class="pencil-tool-cont">
       <div class="pencil-width-cont">
@@ -35,6 +36,8 @@
         <div class="black pencil-color"></div>
         <div class="blue pencil-color"></div>
         <div class="red pencil-color"></div>
+        <div class="green pencil-color"></div>
+        <div class="orange pencil-color"></div>
       </div>
     </div>
     <div class="eraser-tool-cont">
@@ -57,7 +60,11 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      let socket= io.connect("http://localhost:3000/");
+      
+      let socket = io();
+      roomId='<%= data.id %>';
+     
+      socket.emit('joinRoom', roomId);
     </script>
     <script src="./tools.js"></script>
     <script src="./canvas.js"></script>

@@ -1,0 +1,89 @@
+
+
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f1f1f1;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      width: 300px;
+      max-width: 100%;
+      text-align: center;
+    }
+
+    .login-header {
+      background-color: #387ec4;
+      color: #fff;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .login-form {
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      box-sizing: border-box;
+    }
+
+    .form-button {
+      background-color: #387ec4;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    .form-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      Login
+    </div>
+    <form class="login-form" id="loginForm" method="POST" action="/user">
+        <label for="username">Full Name:</label>
+        <input type="text" id="username" name="name" class="form-input" required>
+
+      <label for="username">Email:</label>
+      <input type="text" id="username" name="email" class="form-input" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" class="form-input" required>
+
+      <button type="submit" class="form-button">SignUp</button>
+    </form>
+  </div>
+
+
+</body>
+</html>

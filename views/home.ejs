@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Generator</title>
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+
+        #generateBtn,
+        #joinBtn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        #generateBtn:hover,
+        #joinBtn:hover {
+            background-color: #0056b3;
+        }
+
+        #generatedLink,
+        #generatedCode,
+        #generatedLinkInput,
+        #generatedCodeInput,
+        #copyText {
+            margin-top: 20px;
+        }
+
+        #copyLinkBtn,
+        #copyCodeBtn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #007bff;
+            margin: 0 5px;
+            align-items: center;
+        }
+
+        #joinCodeInput {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        #shareMessage {
+            margin-top: 20px;
+            color: #6c757d;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Link Generator</h2>
+        <p>Tap the button below to generate your link and code:</p>
+        <button id="generateBtn" onclick="generateLinkAndCode()">Generate Link and Code</button>
+        <div id="shareMessage"></div>
+        <div id="generatedLink"></div>
+        
+        <input type="text" id="generatedLinkInput" readonly style="display: none;">
+        <button id="copyLinkBtn" onclick="copyLink()" style="display: none;"><i class="fas fa-copy"></i></button>
+        <div id="generatedCode"></div>
+        <input type="text" id="generatedCodeInput" readonly style="display: none;">
+        <button id="copyCodeBtn" onclick="copyCode()" style="display: none;"><i class="fas fa-copy"></i></button>
+        <div id="copyText" style="display: none; color: green;"></div>
+
+        <div id="joinCodeSection">
+            <p>Enter the code to join the link:</p>
+            <input type="text" id="joinCodeInput" placeholder="Enter code...">
+            <button id="joinBtn" onclick="joinLink()">Join Link</button>
+        </div>
+    </div>
+
+    <!-- Include Font Awesome JS for icons -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+    <script>
+        const baseUrl = 'http://localhost:3000';
+        async function generateLinkAndCode() {
+            // Dummy data (replace with actual data from your API)
+            
+            
+            const res = await fetch(baseUrl + '/id/getId',{
+                method:'GET',
+            })
+            const data=await res.json();
+            
+            // fetch
+            const dummyLink = `${baseUrl}/id/room/${data['id']}`;
+            const dummyCode = data['id'];
+
+            document.getElementById('generatedLink').innerHTML = '<strong>Generated Link:</strong> ' + dummyLink;
+            document.getElementById('generatedCode').innerHTML = '<strong>Generated Code:</strong> ' + dummyCode;
+            document.getElementById('shareMessage').textContent = 'Share with your friends to join in the room!';
+
+            const generatedLinkInputElement = document.getElementById('generatedLinkInput');
+            const generatedCodeInputElement = document.getElementById('generatedCodeInput');
+            const copyLinkBtn = document.getElementById('copyLinkBtn');
+            const copyCodeBtn = document.getElementById('copyCodeBtn');
+            const copyText = document.getElementById('copyText');
+
+            generatedLinkInputElement.value = dummyLink;
+            generatedCodeInputElement.value = dummyCode;
+
+            generatedLinkInputElement.style.display = 'block';
+            generatedLinkInputElement.style.textAlign = 'center';
+            copyLinkBtn.style.display = 'inline-block';
+            generatedCodeInputElement.style.display = 'block';
+            generatedCodeInputElement.style.textAlign = 'center';
+            copyCodeBtn.style.display = 'inline-block';
+            // copyLinkBtn.style.display = 'inline-block';
+            // copyCodeBtn.style.display = 'inline-block';
+
+            // Hide the copy text
+            copyText.style.display = 'none';
+        }
+
+        async function joinLink() {
+            
+            
+            const joinCode = document.getElementById('joinCodeInput').value;
+            url=`${baseUrl}/id/room/${joinCode}`;
+            window.location.href = `${url}`;
+            console.log('Joining link with code:', joinCode);
+        }
+
+        function copyLink() {
+            const generatedLinkInputElement = document.getElementById('generatedLinkInput');
+            generatedLinkInputElement.select();
+            document.execCommand('copy');
+
+            // Display the copy text
+            const copyText = document.getElementById('copyText');
+            copyText.innerHTML = 'Link Copied';
+            copyText.style.display = 'block';
+        }
+
+        function copyCode() {
+            const generatedCodeInputElement = document.getElementById('generatedCodeInput');
+            generatedCodeInputElement.select();
+            document.execCommand('copy');
+
+            // Display the copy text
+            const copyText = document.getElementById('copyText');
+            copyText.innerHTML = 'Code Copied';
+            copyText.style.display = 'block';
+            // alert('Link copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
+

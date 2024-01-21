@@ -96,6 +96,13 @@ body{
 .blue{
     background-color: blue;
 }
+.green{
+    background-color: green;
+}
+.orange{
+    background-color: #ff9933;
+
+}
 .eraser-tool-cont{
     height: 1.5rem;
     width: 8rem;
@@ -160,3 +167,6 @@ img{
     height: 100%;
     width: 100%;
 }
+/* .videoContainer {
+    display: none;
+} */

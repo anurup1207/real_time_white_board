@@ -34,23 +34,23 @@ canvas.addEventListener("mousedown",(e)=>{
     //     x:e.clientX,
     //     y:e.clientY
     // })
-    let data= {
+    let mydata= {
         x:e.clientX,
         y:e.clientY
     }
     
-    socket.emit("beginPath",data);
+    socket.emit("beginPath",{roomId , data: mydata});
 })
 
 canvas.addEventListener("mousemove",(e)=>{
     if(mouseDown){
-        let data={
+        let mydata={
                 x:e.clientX,
                 y:e.clientY,
                 color: eraserFlag ? eraserColor : penColor,
                 width: eraserFlag ? eraserWidth : penWidth
             }
-        socket.emit("drawStroke",data);
+        socket.emit("drawStroke",{roomId , data: mydata});
     }
     // if(mouseDown)drawStroke({
     //     x:e.clientX,
@@ -135,11 +135,11 @@ download.addEventListener("click",(e)=>{
 undo.addEventListener("click",(e)=>{
     if(track>0)track--;
 
-    let data={
+    let mydata={
         trackValue : track,
         undoRedoTracker
     }
-    socket.emit("undoRedo",data);
+    socket.emit("undoRedo",{roomId , data: mydata});
     // track action
     // undoRedoCanvas(trackObj);
 })
@@ -147,11 +147,11 @@ undo.addEventListener("click",(e)=>{
 redo.addEventListener("click",(e)=>{
     if(track < undoRedoTracker.length -1)track++;
 
-    let data={
+    let mydata={
         trackValue : track,
         undoRedoTracker
     }
-    socket.emit("undoRedo",data);
+    socket.emit("undoRedo",{roomId , data: mydata});
     // track action
     // undoRedoCanvas(trackObj);
 })

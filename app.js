@@ -1,6 +1,7 @@
 const express = require("express");
 const socket = require("socket.io");
 const path=require("path")
+const cookieParser=require("cookie-parser")
 
 const {connectMongoDb}= require("./connection")
 
@@ -8,6 +9,7 @@ const staticRouter = require("./routes/staticRouter")
 const userRoute = require("./routes/user")
 const urlId=require("./routes/urlId")
 const homeRoute=require("./routes/homeRoute")
+const {restrictToLoggedinUserOnly}= require('./middleware/auth')
 
 
 
@@ -24,11 +26,11 @@ app.set("view engine","ejs");
 app.set("views",path.resolve("./views"))
 app.use('/id/room', express.static(path.join(__dirname, "views")));
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 
 app.use("/user",userRoute)
 app.use("/id",urlId)
-app.use("/home",homeRoute)
+app.use("/home",restrictToLoggedinUserOnly,homeRoute)
 app.use("/",staticRouter)
 
 

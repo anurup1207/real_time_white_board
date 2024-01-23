@@ -10,6 +10,11 @@ const userSchema = new mongoose.Schema(
     dateCreated:{
         type: Date,
         default: Date.now,
+    },
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"users",
+
     }
 },{timestamps: true})
 

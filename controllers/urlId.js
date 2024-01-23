@@ -1,16 +1,5 @@
-const shortid = require("shortid");
+
 const URLID=require('../model/urlId')
-async function HandleGenerateNewShortURL(req, res) {
-  const body = req.body;
-  
-  const shortID = shortid();
-
-  await URLID.create({
-    id: shortID,
-  });
-
-  return res.json({ id: shortID });
-}
 
 async function HandleGenerateRoom(req,res){
   const id = req.params.id;
@@ -26,6 +15,5 @@ async function HandleGenerateRoom(req,res){
 }
 
 module.exports={
-    HandleGenerateNewShortURL,
     HandleGenerateRoom,
 }

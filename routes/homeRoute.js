@@ -1,7 +1,8 @@
 const express= require('express')
 const router= express.Router();
-const { getHomePage}=require("../controllers/homeRoute")
+const { getHomePage, HandleGenerateNewShortURL}=require("../controllers/homeRoute")
 
 router.get("/",getHomePage);
+router.get("/getid",HandleGenerateNewShortURL);
 
 module.exports=router;

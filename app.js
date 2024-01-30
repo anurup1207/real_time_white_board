@@ -50,6 +50,7 @@ io.on("connection", (socket) => {
   socket.on('joinRoom', (roomId) => {
     socket.join(roomId);
     console.log(`User joined room: ${roomId}`);
+    console.log(socket.id);
   });
   // Recieved data from one computer to server
   socket.on("beginPath", (data) => {

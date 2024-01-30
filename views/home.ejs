@@ -113,7 +113,26 @@
             <button id="joinBtn" onclick="joinLink()">Join Link</button>
         </div>
     </div>
-
+    <% if (locals.ids) { %>
+        <table>
+            <thead>
+                <th>S. No</th>
+                <th>Link Id</th>
+                <th>Creation Date</th>
+            </thead>
+            <tbody>
+                <%  %>
+                <% ids.forEach((id,index) => { %>
+                <tr>
+                 <td><%= index + 1 %></td>
+                 <td><%= id.id %></td>
+                 <td><%= id.dateCreated %></td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+     
+    <% } %>
     <!-- Include Font Awesome JS for icons -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 

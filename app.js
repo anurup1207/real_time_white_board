@@ -1,53 +1,87 @@
 const express = require("express");
 const socket = require("socket.io");
-const path=require("path")
-const cookieParser=require("cookie-parser")
-
-const {connectMongoDb}= require("./connection")
-
-const staticRouter = require("./routes/staticRouter")
-const userRoute = require("./routes/user")
-const urlId=require("./routes/urlId")
-const homeRoute=require("./routes/homeRoute")
-const {restrictToLoggedinUserOnly}= require('./middleware/auth')
+const path = require("path");
+const cookieParser = require("cookie-parser");
 
 
+const {intializingLogInPassport, isAuthenticated, intializingSignInPassport}=require('./middleware/passport')
 
-const bodyParser = require('body-parser')
+const session = require("express-session");
+const MongoStore= require("connect-mongo");
+
+const { connectMongoDb } = require("./connection");
+
+const staticRouter = require("./routes/staticRouter");
+const userRoute = require("./routes/user");
+const urlId = require("./routes/urlId");
+const homeRoute = require("./routes/homeRoute");
+const { restrictToLoggedinUserOnly } = require("./middleware/auth");
+
+const bodyParser = require("body-parser");
+const passport = require("passport");
 const app = express();
 
-connectMongoDb("mongodb://127.0.0.1:27017/real-time-whiteboard").then(()=>
-console.log("Mongodb connected!")
-)
 
-app.use(express.json())
+const UrlToConnectMongo="mongodb://127.0.0.1:27017/real-time-whiteboard";
 
-app.set("view engine","ejs");
-app.set("views",path.resolve("./views"))
-app.use('/id/room', express.static(path.join(__dirname, "views")));
+connectMongoDb(UrlToConnectMongo).then(() =>
+  console.log("Mongodb connected!")
+);
+
+intializingLogInPassport(passport);
+intializingSignInPassport(passport);
+
+
+// Passport library for Authentication
+app.set("trust proxy", 1); // trust first proxy
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+    store:MongoStore.create({ mongoUrl : UrlToConnectMongo, collectionName : "sessions" }),
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(express.json());
+
+app.set("view engine", "ejs");
+app.set("views", path.resolve("./views"));
+app.use("/id/room", express.static(path.join(__dirname, "views")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/user",userRoute)
-app.use("/id",urlId)
-app.use("/home",restrictToLoggedinUserOnly,homeRoute)
-app.use("/",staticRouter)
 
 
+// All my routes
+app.use("/user", userRoute);
+app.use("/id", urlId);
+app.use("/home",isAuthenticated, homeRoute);
+app.use("/", staticRouter);
 
 
-  
+// Listening to Server at PORT
 let port = process.env.PORT || 3000;
 let server = app.listen(port, () => {
   console.log("Listening to the port : " + port);
 });
+
+
+
+
+
+
+// Socket Code Part
 
 let io = socket(server);
 
 io.on("connection", (socket) => {
   console.log("Made Socket Connection");
 
-  socket.on('joinRoom', (roomId) => {
+  socket.on("joinRoom", (roomId) => {
     socket.join(roomId);
     console.log(`User joined room: ${roomId}`);
     console.log(socket.id);
@@ -77,7 +111,7 @@ io.on("connection", (socket) => {
     io.sockets.in(data.roomId).emit("closeNoteAction", data.data);
   });
 
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
   });
 });

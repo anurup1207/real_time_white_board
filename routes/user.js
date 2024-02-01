@@ -14,10 +14,13 @@ router.post('/', passport.authenticate('local.signup' , {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/home",
+    keepSessionInfo:true,
+    successReturnToOrRedirect:'/home',
     failureRedirect: "/signup",
     failureFlash: true,
   })
 );
+
+
 
 module.exports = router;

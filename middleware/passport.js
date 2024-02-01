@@ -10,9 +10,9 @@ exports.intializingSignInPassport = (passport) => {
       {
         usernameField: "username",
         passwordField: "password",
-        passReqToCallback: true,
+        
       },
-      async (req, username, password, done) => {
+      async ( username, password, done) => {
         try {
           const name = req.body.name;
           const user1 = await User.findOne({ username });
@@ -42,20 +42,27 @@ exports.intializingSignInPassport = (passport) => {
 
 exports.intializingLogInPassport = (passport) => {
   passport.use(
-    new LocalStrategy(async (username, password, done) => {
-      try {
-        const user = await User.findOne({ username });
-        console.log(user);
+    new LocalStrategy(
+      {
+        usernameField: "username",
+        passwordField: "password",
+        passReqToCallback: true,
+      },
+      async (req,username, password, done) => {
+        try {
+          const user = await User.findOne({ username });
 
-        if (!user) return done(null, false);
+          if (!user) return done(null, false);
 
-        if (!compareSync(password, user.password)) return done(null, false);
+          if (!compareSync(password, user.password)) return done(null, false);
+          
 
-        return done(null, user);
-      } catch (error) {
-        return done(error, false);
+          return done(null, user);
+        } catch (error) {
+          return done(error, false);
+        }
       }
-    })
+    )
   );
   passport.serializeUser(function (user, done) {
     done(null, user.id);
@@ -73,6 +80,9 @@ exports.intializingLogInPassport = (passport) => {
 
 exports.isAuthenticated = (req, res, next) => {
   if (req.user) return next();
+
+  req.session.returnTo = req.originalUrl;
+  
 
   res.redirect("/login");
 };

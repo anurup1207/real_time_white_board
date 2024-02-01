@@ -2,6 +2,7 @@ const express = require("express");
 const socket = require("socket.io");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const connectEnsureLogIn= require("connect-ensure-login");
 
 
 const {intializingLogInPassport, isAuthenticated, intializingSignInPassport}=require('./middleware/passport')
@@ -41,6 +42,7 @@ app.use(
     saveUninitialized: true,
     store:MongoStore.create({ mongoUrl : UrlToConnectMongo, collectionName : "sessions" }),
     cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },
+    cookie:{secure:false},
   })
 );
 app.use(passport.initialize());
@@ -58,8 +60,8 @@ app.use(cookieParser());
 
 // All my routes
 app.use("/user", userRoute);
-app.use("/id", urlId);
-app.use("/home",isAuthenticated, homeRoute);
+app.use("/id",connectEnsureLogIn.ensureLoggedIn('/login'), urlId);
+app.use("/home",connectEnsureLogIn.ensureLoggedIn('/login'), homeRoute);
 app.use("/", staticRouter);
 
 

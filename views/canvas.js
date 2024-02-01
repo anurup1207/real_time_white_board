@@ -183,3 +183,7 @@ socket.on("undoRedo",(data)=>{
 
     undoRedoCanvas(data);
 })
+
+socket.on("updateUserList",(all_users)=>{
+    console.log(all_users);
+})

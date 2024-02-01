@@ -10,9 +10,10 @@ exports.intializingSignInPassport = (passport) => {
       {
         usernameField: "username",
         passwordField: "password",
+        passReqToCallback: true,
         
       },
-      async ( username, password, done) => {
+      async (req, username, password, done) => {
         try {
           const name = req.body.name;
           const user1 = await User.findOne({ username });

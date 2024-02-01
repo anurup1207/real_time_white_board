@@ -74,7 +74,7 @@ let server = app.listen(port, () => {
 
 
 
-
+const roomUsers={};
 
 // Socket Code Part
 
@@ -83,10 +83,19 @@ let io = socket(server);
 io.on("connection", (socket) => {
   console.log("Made Socket Connection");
 
-  socket.on("joinRoom", (roomId) => {
+  socket.on("joinRoom", (roomId,user,user_email) => {
+    socket.username=user;
     socket.join(roomId);
+    if (!roomUsers[roomId]) {
+      roomUsers[roomId] = [];
+    }
+    roomUsers[roomId].push(user);
+    // Broadcast the updated user list to all clients in the room
+    io.sockets.in(roomId).emit("updateUserList",roomUsers[roomId])
+
+    console.log(roomUsers);
     console.log(`User joined room: ${roomId}`);
-    console.log(socket.id);
+    
   });
   // Recieved data from one computer to server
   socket.on("beginPath", (data) => {
@@ -115,5 +124,9 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("User disconnected");
+    Object.keys(roomUsers).forEach((roomId)=>{
+      roomUsers[roomId] = roomUsers[roomId].filter(user => user !== socket.username);
+      io.sockets.in(roomId).emit("updateUserList",roomUsers[roomId])
+    });
   });
 });

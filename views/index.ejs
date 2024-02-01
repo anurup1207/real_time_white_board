@@ -63,8 +63,11 @@
       
       let socket = io();
       roomId='<%= data.id %>';
+      user = '<%= data.user %>';
+      user_email = '<%= data.user_email %>';
+
      
-      socket.emit('joinRoom', roomId);
+      socket.emit('joinRoom', roomId,user,user_email);
     </script>
     <script src="./tools.js"></script>
     <script src="./canvas.js"></script>

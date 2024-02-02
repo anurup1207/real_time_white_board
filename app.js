@@ -3,9 +3,12 @@ const socket = require("socket.io");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const connectEnsureLogIn= require("connect-ensure-login");
+require('dotenv').config()
+
 
 
 const {intializingLogInPassport, isAuthenticated, intializingSignInPassport}=require('./middleware/passport')
+const { initializingGooglePassport } = require("./middleware/google_auth");
 
 const session = require("express-session");
 const MongoStore= require("connect-mongo");
@@ -16,10 +19,12 @@ const staticRouter = require("./routes/staticRouter");
 const userRoute = require("./routes/user");
 const urlId = require("./routes/urlId");
 const homeRoute = require("./routes/homeRoute");
-const { restrictToLoggedinUserOnly } = require("./middleware/auth");
+const googleAuthRoute = require("./routes/googleAuthRoute")
+const { restrictToLoggedinUserOnly } = require("./middleware/local_auth");
 
 const bodyParser = require("body-parser");
 const passport = require("passport");
+
 const app = express();
 
 
@@ -31,6 +36,7 @@ connectMongoDb(UrlToConnectMongo).then(() =>
 
 intializingLogInPassport(passport);
 intializingSignInPassport(passport);
+initializingGooglePassport(passport);
 
 
 // Passport library for Authentication
@@ -63,6 +69,7 @@ app.use("/user", userRoute);
 app.use("/id",connectEnsureLogIn.ensureLoggedIn('/login'), urlId);
 app.use("/home",connectEnsureLogIn.ensureLoggedIn('/login'), homeRoute);
 app.use("/", staticRouter);
+app.use("/google",googleAuthRoute);
 
 
 // Listening to Server at PORT

@@ -29,6 +29,8 @@ tool.lineWidth=penWidth;
 
 
 canvas.addEventListener("mousedown",(e)=>{
+    
+    
     mouseDown=true;
     // beginPath({
     //     x:e.clientX,
@@ -52,6 +54,7 @@ canvas.addEventListener("mousemove",(e)=>{
             }
         socket.emit("drawStroke",{roomId , data: mydata});
     }
+    tool.save();
     // if(mouseDown)drawStroke({
     //     x:e.clientX,
     //     y:e.clientY,
@@ -65,6 +68,8 @@ canvas.addEventListener("mouseup",(e)=>{
     let url=canvas.toDataURL();
     undoRedoTracker.push(url);
     track = undoRedoTracker.length-1;
+    console.log("mouseUp");
+    
     // console.log(undoRedoTracker);
     // console.log(track);
 })
@@ -79,6 +84,7 @@ function drawStroke(strokeObj){
     tool.lineWidth=strokeObj.width;
     tool.lineTo(strokeObj.x,strokeObj.y);
     tool.stroke();
+    
 }
 
 // tool.beginPath(); // new graphich (path) (line)

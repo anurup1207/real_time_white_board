@@ -20,15 +20,17 @@ const userRoute = require("./routes/user");
 const urlId = require("./routes/urlId");
 const homeRoute = require("./routes/homeRoute");
 const googleAuthRoute = require("./routes/googleAuthRoute")
+const githubAuthRoute = require("./routes/githubAuthRoute")
 const { restrictToLoggedinUserOnly } = require("./middleware/local_auth");
 
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const { initializingGithubPassport } = require("./middleware/github_auth");
 
 const app = express();
 
 
-const UrlToConnectMongo="mongodb://127.0.0.1:27017/real-time-whiteboard";
+const UrlToConnectMongo=process.env.URLTOCONNECTMONGODB;
 
 connectMongoDb(UrlToConnectMongo).then(() =>
   console.log("Mongodb connected!")
@@ -37,13 +39,14 @@ connectMongoDb(UrlToConnectMongo).then(() =>
 intializingLogInPassport(passport);
 intializingSignInPassport(passport);
 initializingGooglePassport(passport);
+initializingGithubPassport(passport);
 
 
 // Passport library for Authentication
 app.set("trust proxy", 1); // trust first proxy
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
     store:MongoStore.create({ mongoUrl : UrlToConnectMongo, collectionName : "sessions" }),
@@ -70,6 +73,7 @@ app.use("/id",connectEnsureLogIn.ensureLoggedIn('/login'), urlId);
 app.use("/home",connectEnsureLogIn.ensureLoggedIn('/login'), homeRoute);
 app.use("/", staticRouter);
 app.use("/google",googleAuthRoute);
+app.use("/github",githubAuthRoute);
 
 
 // Listening to Server at PORT

@@ -1,21 +1,27 @@
-const GoogleStrategy = require("passport-google-oauth2").Strategy;
+const GithubStrategy = require("passport-github2").Strategy;
 const User = require('../model/user');
 
 
 
-exports.initializingGooglePassport = (passport) => {
+exports.initializingGithubPassport = (passport) => {
   passport.use(
-    new GoogleStrategy({
+    new GithubStrategy({
     
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBACK_URL,
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: process.env.GITHUB_CALLBACK_URL,
       passReqToCallback : true,
     },async function(req, accessToken,refreshToken,profile,done){
+    
         const profileJson = profile._json;
-        const name = profile.displayName;
-        const username = profileJson.email;
-        const password = "Google_sign_in";
+        var name = profile.displayName;
+        if(!name){
+            name="null";
+        }
+        const username = profileJson.login;
+        const password = "Github_sign_in";
+        console.log(username)
+        console.log(name)
         
       
       const user = await User.findOne({username});
@@ -29,8 +35,9 @@ exports.initializingGooglePassport = (passport) => {
         });
         return done(null,user1)
       }
-      // req.user=user;
-        return done(null,user);
+    
+    return done(null,user);
+    
     })
   );
 

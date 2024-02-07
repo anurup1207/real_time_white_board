@@ -62,6 +62,7 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 app.use("/id/room", express.static(path.join(__dirname, "views")));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 

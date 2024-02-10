@@ -61,8 +61,8 @@ app.use(express.json());
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
-// app.use("/id/room", express.static(path.join(__dirname, "views")));
-app.use( express.static(path.join(__dirname, "views")));
+app.use("/id/room", express.static(path.join(__dirname, "views")));
+// app.use( express.static(path.join(__dirname, "views")));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -73,15 +73,15 @@ app.use(cookieParser());
 app.use("/user", userRoute);
 app.use("/id",connectEnsureLogIn.ensureLoggedIn('/login'), urlId);
 app.use("/home",connectEnsureLogIn.ensureLoggedIn('/login'), homeRoute);
-// app.use("/", staticRouter);
-app.use("/",(req,res)=>{
-  const mydata={
-    'id':"1",
-    'user':"aa",
-    'user_email':"req.user.username",
-  }
-  res.render("index",{data:mydata});
-})
+app.use("/", staticRouter);
+// app.use("/",(req,res)=>{
+//   const mydata={
+//     'id':"1",
+//     'user':"aa",
+//     'user_email':"req.user.username",
+//   }
+//   res.render("index",{data:mydata});
+// })
 app.use("/google",googleAuthRoute);
 app.use("/github",githubAuthRoute);
 

@@ -1,4 +1,5 @@
 let optionsCont = document.querySelector(".options-cont");
+
 let toolsCont = document.querySelector(".tools-cont");
 let optionsFlag = true;
 let pencilToolCont = document.querySelector(".pencil-tool-cont");

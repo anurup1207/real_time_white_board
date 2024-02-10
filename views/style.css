@@ -215,7 +215,12 @@ img{
     border-radius: 3%;
     padding-top: 10px;
     overflow-y: auto;
+    scroll-behavior: smooth;
 }
+.message-cont-box::-webkit-scrollbar {
+    width: 1px;
+    opacity: 30;
+  }
 
 .message-cont-cross-icon{
     font-size: 30px;
@@ -229,21 +234,35 @@ img{
     border: 2px solid black;
     border-radius: 10px;
     margin: 18px 24px;
+    word-wrap: break-word;
+    /* width: 100%; */
 
 }
 #message-cont-send-cont{
-    display: block;
+    display: flex;
     margin: auto;
+    justify-content: space-between;
+    
 }
 #messageInp{
-    width: 85%;
+    width: 88%;
     border: 2px solid black;
     border-radius: 6px;
     height: 40px;
+    overflow-y: auto;
+    overflow: hidden;
+    font-size: 19px;
+    
 }
 .send-message-button{
+    width: calc(100% - 90%);
     cursor: pointer;
     border: 2px solid black;
-    border-radius: 6px;
-    height: 40px;
+    border-radius: 50%;
+    /* height: 40px; */
+}
+.message-cont-send-icon{
+    transform:rotate(90deg) ;
+    font-size: 22px;
+    
 }

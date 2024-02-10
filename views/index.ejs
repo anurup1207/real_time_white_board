@@ -59,10 +59,12 @@
       </div>
 
       <div class="message-cont-send-area">
-        <form action="#" id="message-cont-send-cont">
-          <input type="text" name="messageInp" id="messageInp">
-          <button type="submit" class="send-message-button"> Send </button>
+        <form action="#" id="message-cont-send-cont" autocomplete="off">
+          <!-- <input type="text" name="messageInp" id="messageInp"> -->
+          <textarea name="messageInp" id="messageInp" ></textarea>
+          <button type="submit" class="send-message-button"> <i class="message-cont-send-icon fa-solid fa-arrow-up"></i> </button>
         </form>
+        
       </div>
    
     </div>

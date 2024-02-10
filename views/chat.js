@@ -8,8 +8,10 @@ form.addEventListener("submit",(e)=>{
 
     e.preventDefault();
     const message=messageInput.value;
-    
+    console.log(message);
+    if (message != ""){
     socket.emit("sendMessage", {roomId , data: message});
+    }
     messageInput.value = '';
 
 })
@@ -21,6 +23,7 @@ function recieveMessage (message){
     recieved_cont.innerHTML = message;
     
     messageContainer.append(recieved_cont);
+    messageContainer.scrollTop=messageContainer.scrollHeight;
 }
 
 socket.on("recieveMessage", (data) => {

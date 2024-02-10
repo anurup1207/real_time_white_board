@@ -11,6 +11,11 @@ let upload = document.querySelector(".upload");
 let video = document.querySelector(".video");
 let pencilFlag = false;
 let eraserFlag = false;
+let messageSection=false;
+
+let messageIcon= document.querySelector(".message-icon");
+let messageCont = document.querySelector(".message-cont");
+
 
 optionsCont.addEventListener("click", (e) => {
   // true -> tools show, false -> hide tools
@@ -87,6 +92,17 @@ upload.addEventListener("click", (e) => {
   });
 });
 
+
+messageIcon.addEventListener("click",(e)=>{
+  messageSection = !messageSection;
+  // console.log(messageSection);
+  if(messageSection){
+    messageCont.style.display="flex";
+  }else{
+    messageCont.style.display="none";
+  }
+
+});
 
 
 function createSticky(stickyTemplateHTML) {

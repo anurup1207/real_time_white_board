@@ -193,7 +193,7 @@ img{
     border-radius: 3%;
     margin: 0.5rem;
     padding: 2.5rem;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-evenly;
     
@@ -245,24 +245,37 @@ img{
     
 }
 #messageInp{
-    width: 88%;
+    width: 78%;
     border: 2px solid black;
     border-radius: 6px;
     height: 40px;
     overflow-y: auto;
     overflow: hidden;
     font-size: 19px;
+    padding: 7px;
     
 }
 .send-message-button{
-    width: calc(100% - 90%);
+    width: 10%;
     cursor: pointer;
     border: 2px solid black;
     border-radius: 50%;
+    /* height: 40px; */
+}
+.audio-message-button{
+    width: 10%;
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 50%;
+    color: black;
+    
     /* height: 40px; */
 }
 .message-cont-send-icon{
     transform:rotate(90deg) ;
     font-size: 22px;
     
+}
+.message-cont-audio-icon{
+    font-size: 22px;
 }

@@ -37,23 +37,40 @@ canvas{
     font-size: 20px;
     font-family: 'Segoe UI', Tahoma,  Verdana, sans-serif;
     margin: auto;
+    position: absolute;
+    left: 47%;
+    margin-top: 0.8rem;
 }
 .heading-right-cont{
     display: flex;
-    flex-direction: column;
+    
     text-align: center;
     justify-content: center;
+    
 }
 .joined-members{
     display: flex;
+    margin: auto;
+    margin-bottom: 1rem;
     .avatar{
-        margin: -0.4rem;
+        
+        margin: -0.3rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+
+        &:hover{
+            transform: translate(-0.2rem);
+        }
+    }
+    .hidden-user{
+        margin: -0.3rem;
         cursor: pointer;
         transition: transform 0.3s ease;
 
         &:hover{
             transform: translate(-0.3rem);
         }
+
     }
    
 }
@@ -70,6 +87,7 @@ canvas{
     position: relative;
     left: -5px;
     z-index:1;
+    
    
 }
 .avatar::after{
@@ -81,6 +99,57 @@ canvas{
     flex-direction: column;
     justify-content: center;
     text-align: center;
+}
+.hidden-user{
+    font-size: 16px;
+    height: 2.90rem;
+    width: 2.90rem;
+    background-color: #EFEFEF;
+    border-radius: 50%;
+    border: 2px solid black;
+    outline: 2.3px solid white;
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    left: -5px;
+    z-index:1;
+
+   
+}
+.hidden-user::after{
+    content: attr(data-label);
+    color: black;
+    font-size: 1.2rem;
+    font-family: 'Readex Pro' , sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.share-link-cont{
+    /* background-color: #2ed573; */
+    height: 3rem;
+    width: 8.5rem;
+    border: 2px solid black;
+    border-radius: 30px 30px 30px 30px;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma,  Verdana, sans-serif;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    margin-left: 0.7rem;
+    margin-right: 0.7rem;
+    
+    
+    
+}
+.share-link-cont > div > *{
+    margin: 0.3rem;
 }
 .main-canvas-cont{
     background-color: rgb(255, 255, 255);

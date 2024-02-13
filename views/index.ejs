@@ -25,6 +25,13 @@
       <div class="heading-right-cont">
         <div class="joined-members">
         </div>
+        <div class="share-link-cont">
+          <div>
+            Share 
+            <i class="fa-regular fa-share-from-square"></i>
+          </div>
+        </div>
+        
       </div>
         
     </div>
@@ -108,6 +115,23 @@
       roomId='<%= data.id %>';
       user = '<%= data.user %>';
       user_email = '<%= data.user_email %>';
+
+      var avatarDiv =document.createElement("div")
+      avatarDiv.setAttribute("class","avatar");
+      let data_label= user.substring(0, 2).toUpperCase();
+      avatarDiv.setAttribute("data-label",`${data_label}`);
+
+      const charCodeRed =avatarDiv.dataset.label.charCodeAt(0);
+      const charCodeGreen =avatarDiv.dataset.label.charCodeAt(1) || charCodeRed;
+
+      const red = Math.pow(charCodeRed,7) % 200;
+      const green = Math.pow(charCodeGreen,3) % 200;
+      const blue =(red + green) % 200;
+      avatarDiv.style.backgroundColor =`rgb(${red},${green},${blue})`;
+      avatarDiv.style.cursor="pointer";
+
+      let headingRightCont = document.querySelector(".heading-right-cont");
+      headingRightCont.append(avatarDiv);
 
      
       socket.emit('joinRoom', roomId,user,user_email);

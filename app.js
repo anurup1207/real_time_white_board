@@ -117,7 +117,7 @@ io.on("connection", (socket) => {
     roomUsers[roomId].push([user_email,user]);
     }
     io.sockets.in(roomId).emit("updateUserList",roomUsers[roomId])
-    console.log(roomUsers);
+    // console.log(roomUsers);
     console.log(`User joined room: ${roomId}`);
     
    
@@ -161,10 +161,6 @@ io.on("connection", (socket) => {
     roomUsers[socket.roomId]=roomUsers[socket.roomId].filter(row => row[0] != socket.username);
     console.log( roomUsers[socket.roomId]);
     io.sockets.in(socket.roomId).emit("updateUserList",roomUsers[socket.roomId])
-    // Object.keys(roomUsers).forEach((roomId)=>{
-    //   roomUsers[roomId] = roomUsers[roomId].filter(user => user == socket.username);
-      
-    //   io.sockets.in(roomId).emit("updateUserList",roomUsers[roomId])
-    // });
+    
   });
 });

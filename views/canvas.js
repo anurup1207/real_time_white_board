@@ -10,6 +10,8 @@ let undo=document.querySelector(".undo");
 let redo=document.querySelector(".redo");
 
 
+
+
 let penColor="red";
 let eraserColor="white";
 let penWidth=pencilWidthElem.value;
@@ -26,6 +28,7 @@ let tool= canvas.getContext("2d");
 
 tool.strokeStyle=penColor;
 tool.lineWidth=penWidth;
+
 
 
 canvas.addEventListener("mousedown",(e)=>{
@@ -191,5 +194,37 @@ socket.on("undoRedo",(data)=>{
 })
 
 socket.on("updateUserList",(all_users)=>{
+    
+
+    let divToDelete = document.querySelector('.joined-members');
+
+    while (divToDelete.firstChild) {
+        divToDelete.removeChild(divToDelete.firstChild);
+    }
+    
     console.log(all_users);
+    all_users.forEach(user_det=>{
+
+        user=user_det[1];
+        console.log(user);
+        var avatarDiv =document.createElement("div")
+        avatarDiv.setAttribute("class","avatar");
+        let data_label= user.substring(0, 2).toUpperCase();
+        avatarDiv.setAttribute("data-label",`${data_label}`);
+        // avatarDiv.setAttribute("id",`${user_det.user_email}`);
+
+        const charCodeRed =avatarDiv.dataset.label.charCodeAt(0);
+        const charCodeGreen =avatarDiv.dataset.label.charCodeAt(1) || charCodeRed;
+
+        const red = Math.pow(charCodeRed,7) % 200;
+        const green = Math.pow(charCodeGreen,3) % 200;
+        const blue =(red + green) % 200;
+        // console.log(red);
+        avatarDiv.style.backgroundColor =`rgb(${red},${green},${blue})`;
+
+        let joinedMembers = document.querySelector(".joined-members");
+        joinedMembers.append(avatarDiv);
+        
+
+    })
 })

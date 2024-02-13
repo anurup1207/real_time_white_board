@@ -16,6 +16,12 @@ let messageSection=false;
 let messageIcon= document.querySelector(".message-icon");
 let messageCont = document.querySelector(".message-cont");
 
+window.addEventListener("load", () => {
+  // setting canvas width/height.. offsetwidth/height returns viewable width/height of an element
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+  
+});
 
 optionsCont.addEventListener("click", (e) => {
   // true -> tools show, false -> hide tools
@@ -44,6 +50,7 @@ function closeTools() {
 
 pencil.addEventListener("click", (e) => {
   // true->show pencil tool , false-> hide pencil tool
+  console.log(pencilFlag)
   pencilFlag = !pencilFlag;
   if (pencilFlag) pencilToolCont.style.display = "block";
   else pencilToolCont.style.display = "none";

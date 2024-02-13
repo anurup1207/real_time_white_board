@@ -1,11 +1,117 @@
 * {
     box-sizing: border-box;
 }
+html{
+    height: 100%;
+}
 body{
+    overflow: hidden;
     margin: 0;
-    padding: 0;
+    padding: 10px;
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-bottom: 22px;
+    height: 100%;
+    background-color: #EFEFEF;
+
+}
+canvas{
+  
+    position: absolute;
+    top: 2rem;
 }
 
+.heading-cont{
+    /* background-color: #ff4757; */
+    height: 3.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding-left: 3.5rem ;
+    padding-right: 3.5rem;
+
+
+}
+.page-name{
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma,  Verdana, sans-serif;
+    margin: auto;
+}
+.heading-right-cont{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+.joined-members{
+    display: flex;
+    .avatar{
+        margin: -0.4rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+
+        &:hover{
+            transform: translate(-0.3rem);
+        }
+    }
+   
+}
+.avatar{
+    font-size: 16px;
+    height: 3rem;
+    width: 3rem;
+    
+    border-radius: 50%;
+    border: 3px solid white;
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    left: -5px;
+    z-index:1;
+   
+}
+.avatar::after{
+    content: attr(data-label);
+    color: white;
+    font-size: 1.2rem;
+    font-family: 'Readex Pro' , sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.main-canvas-cont{
+    background-color: rgb(255, 255, 255);
+    height: 94%;
+    width: 100%;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+
+    
+    
+}
+.tools-cont{
+    display: flex;
+    text-align: center;
+    height: 4rem;
+    width: 35vw;
+    background-color: #EFEFEF;
+    justify-content: space-evenly;
+    border-radius: 30px;
+    position: relative;
+    top: 91%;
+  
+}
+.tools-cont > *{
+    position: relative;
+    font-size: 24px;
+    top: 35%;
+}
 .options-cont{
     height: 4rem;
     width: 3.5rem;
@@ -13,7 +119,7 @@ body{
     position: absolute;
     top: 2rem;
     left: 2rem;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
@@ -21,17 +127,7 @@ body{
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
-.tools-cont{
-    display: flex;
-    height: 4rem;
-    width: 55vw;
-    background-color: #dfe4ea;
-    justify-content: space-around;
-    position: absolute;
-    top: 2rem;
-    left: 20vw;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-}
+
 .scale-tools{
     animation-name: scale-tools;
     animation-duration: 1s;
@@ -44,10 +140,7 @@ body{
         transform:scale(1);
     }
 }
-.tools-cont > *{
-    display: block;
-    width: 3rem;
-}
+
 .pencil-tool-cont{
     height: 4rem;
     width: 8rem;
@@ -63,7 +156,7 @@ body{
 }
 
 .pencil-width-cont{
-    /* background-color: orange; */
+    background-color: orange;
     height: 1rem;
     display: flex;
     justify-content: center;

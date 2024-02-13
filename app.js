@@ -61,8 +61,8 @@ app.use(express.json());
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
-// app.use("/id/room", express.static(path.join(__dirname, "views")));
-app.use( express.static(path.join(__dirname, "views")));
+app.use("/id/room", express.static(path.join(__dirname, "views")));
+// app.use( express.static(path.join(__dirname, "views")));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -73,15 +73,15 @@ app.use(cookieParser());
 app.use("/user", userRoute);
 app.use("/id",connectEnsureLogIn.ensureLoggedIn('/login'), urlId);
 app.use("/home",connectEnsureLogIn.ensureLoggedIn('/login'), homeRoute);
-// app.use("/", staticRouter);
-app.use("/",(req,res)=>{
-  const mydata={
-    'id':"1",
-    'user':"aa",
-    'user_email':"req.user.username",
-  }
-  res.render("index",{data:mydata});
-})
+app.use("/", staticRouter);
+// app.use("/",(req,res)=>{
+//   const mydata={
+//     'id':"1",
+//     'user':"aa",
+//     'user_email':"req.user.username",
+//   }
+//   res.render("index",{data:mydata});
+// })
 app.use("/google",googleAuthRoute);
 app.use("/github",githubAuthRoute);
 
@@ -105,17 +105,22 @@ io.on("connection", (socket) => {
   console.log("Made Socket Connection");
 
   socket.on("joinRoom", (roomId,user,user_email) => {
-    socket.username=user;
+    socket.username=user_email;
+    socket.roomId = roomId;
+
     socket.join(roomId);
     if (!roomUsers[roomId]) {
       roomUsers[roomId] = [];
     }
-    roomUsers[roomId].push(user);
-    // Broadcast the updated user list to all clients in the room
+    const isUsernamePresent = roomUsers[roomId].some(row => row[0] === user_email);
+    if(!isUsernamePresent){
+    roomUsers[roomId].push([user_email,user]);
+    }
     io.sockets.in(roomId).emit("updateUserList",roomUsers[roomId])
-
     console.log(roomUsers);
     console.log(`User joined room: ${roomId}`);
+    
+   
     
   });
   // Recieved data from one computer to server
@@ -148,9 +153,18 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("User disconnected");
-    Object.keys(roomUsers).forEach((roomId)=>{
-      roomUsers[roomId] = roomUsers[roomId].filter(user => user !== socket.username);
-      io.sockets.in(roomId).emit("updateUserList",roomUsers[roomId])
-    });
+   
+    if (!roomUsers[socket.roomId]) {
+      roomUsers[socket.roomId] = [];
+    }
+    
+    roomUsers[socket.roomId]=roomUsers[socket.roomId].filter(row => row[0] != socket.username);
+    console.log( roomUsers[socket.roomId]);
+    io.sockets.in(socket.roomId).emit("updateUserList",roomUsers[socket.roomId])
+    // Object.keys(roomUsers).forEach((roomId)=>{
+    //   roomUsers[roomId] = roomUsers[roomId].filter(user => user == socket.username);
+      
+    //   io.sockets.in(roomId).emit("updateUserList",roomUsers[roomId])
+    // });
   });
 });

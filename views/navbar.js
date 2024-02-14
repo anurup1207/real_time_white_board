@@ -4,14 +4,77 @@ let closeShareLinkCont = document.querySelector(".close");
 let popup = document.querySelector(".popup");
 
 
+let whatsapp= document.querySelector(".whatsapp");
+let facebook= document.querySelector(".facebook");
+let twitter= document.querySelector(".twitter");
+let linkedin = document.querySelector(".linkedin");
+let telegram= document.querySelector(".telegram");
+
+
+
+const pageUrl=encodeURIComponent(location.href);
+const message= encodeURI(`is inviting you to join a team-board session with him. Click the link to join the room `);
+
+const whatsappApi = `https://wa.me/?text=${encodeURIComponent(user)} ${message}. ${pageUrl}`;
+const facebookApi = `https://www.facebook.com/share.php?u=${pageUrl}`;
+const twitterApi = `http://twitter.com/share?&url=${pageUrl}&text=${encodeURIComponent(user)} ${message}&hashtags=`;
+const linkedinApi= `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`
+const telegramApi = `https://t.me/share/url?url=${pageUrl}&text=${encodeURIComponent(user)} ${message}`;
+
+
+
+
+
+let field = document.querySelector(".field");
+let copyVal = field.querySelector(".copy-val");
+copyVal.value=location.href;
+
+
+let copyButton = field.querySelector(".copy-button");
+
+copyVal.addEventListener("focus",(e)=>{
+    copyVal.select();
+});
+copyButton.addEventListener("click",(e)=>{
+    const text=copyVal.value;
+    copyVal.select();
+    navigator.clipboard.writeText(text);
+
+    copyButton.innerHTML='Copied';
+    setTimeout(()=>copyButton.innerHTML='Copy',1000);
+
+});
+
+whatsapp.addEventListener("click",(e)=>{
+    window.open(url = whatsappApi, target='blank');
+
+});
+facebook.addEventListener("click",(e)=>{
+    window.open(url = facebookApi, target='blank');
+    
+});
+twitter.addEventListener("click",(e)=>{
+    window.open(url = twitterApi, target='blank');
+});
+linkedin.addEventListener("click",(e)=>{
+    window.open(url = linkedinApi, target='blank');
+});
+
+telegram.addEventListener("click",(e)=>{
+    window.open(url = telegramApi, target='blank');
+    
+});
+
 shareLinkCont.addEventListener("click",(e)=>{
     
     popup.style.display="block";
 });
+
 closeShareLinkCont.addEventListener("click",(e)=>{
     popup.style.display="none";
 
 });
+
 
 
 socket.on("updateUserList",(all_users)=>{

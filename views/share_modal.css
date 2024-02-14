@@ -69,40 +69,41 @@ header .close{
     justify-content: center;
 }
 
-.icons a:nth-child(1){
-    color: #1877F2;
-    border-color: #b7d4fb;
-  }
-  .icons a:nth-child(1):hover{
-    background: #1877F2;
-  }
-  .icons a:nth-child(2){
-    color: #46C1F6;
-    border-color: #b6e7fc;
-  }
-  .icons a:nth-child(2):hover{
-    background: #46C1F6;
-  }
-  .icons a:nth-child(3){
-    color: #e1306c;
-    border-color: #f5bccf;
-  }
-  .icons a:nth-child(3):hover{
-    background: #e1306c;
-  }
-  .icons a:nth-child(4){
+
+  .icons a:nth-child(1){
     color: #25D366;
     border-color: #bef4d2;
   }
-  .icons a:nth-child(4):hover{
+  .icons a:nth-child(1):hover{
     background: #25D366;
   }
-  .icons a:nth-child(5){
+  .icons a:nth-child(2){
     color: #0088cc;
     border-color: #b3e6ff;
   }
-  .icons a:nth-child(5):hover{
+  .icons a:nth-child(2):hover{
     background: #0088cc;
+  }
+  .icons a:nth-child(3){
+    color: #46C1F6;
+    border-color: #b6e7fc;
+  }
+  .icons a:nth-child(3):hover{
+    background: #46C1F6;
+  }
+  .icons a:nth-child(4){
+    color: #0077B5;
+    border-color: #6bcafe;
+  }
+  .icons a:nth-child(4):hover{
+    background: #0077B5;
+  }
+  .icons a:nth-child(5){
+    color: #1877F2;
+    border-color: #b7d4fb;
+  }
+  .icons a:nth-child(5):hover{
+    background: #1877F2;
   }
   .icons a:hover{
     color: #fff;

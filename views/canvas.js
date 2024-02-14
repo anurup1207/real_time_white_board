@@ -203,7 +203,7 @@ socket.on("updateUserList",(all_users)=>{
     }
 
     console.log(all_users);
-    
+    all_users = all_users.filter(user_details => user_details[0]!= user_email);
     
     for(let i=0;i<Math.min(3,all_users.length);i++){
 

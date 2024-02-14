@@ -129,6 +129,7 @@
       const blue =(red + green) % 200;
       avatarDiv.style.backgroundColor =`rgb(${red},${green},${blue})`;
       avatarDiv.style.cursor="pointer";
+      avatarDiv.style.border="3px solid black";
 
       let headingRightCont = document.querySelector(".heading-right-cont");
       headingRightCont.append(avatarDiv);

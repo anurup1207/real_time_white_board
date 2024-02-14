@@ -1,0 +1,159 @@
+body{
+    transform: scale(0.98);
+}
+.popup{
+    /* background-color: #efefef; */
+    background-color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    max-width: 380px;
+    width: 100%;
+    transform: scale(1);
+    font-family: 'Poppins', sans-serif;
+    display: none;
+}
+
+.popup header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #efefef;
+
+}
+
+header span{
+    font-size: 21px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+
+header .close{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: black;
+    font-size: 14px;
+    height: 23px;
+    width: 23px;
+    background-color: #efefef;
+    cursor: pointer;
+
+}
+
+.popup .content{
+    margin: 20px 0;
+}
+
+.popup .icons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0 20px 0;
+    padding-left: 2px;
+}
+.content p{
+    font-size: 16px;
+}
+
+.icons a{
+    height: 3rem;
+    width: 3rem;
+    border: 2px solid transparent;
+    text-decoration: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icons a:nth-child(1){
+    color: #1877F2;
+    border-color: #b7d4fb;
+  }
+  .icons a:nth-child(1):hover{
+    background: #1877F2;
+  }
+  .icons a:nth-child(2){
+    color: #46C1F6;
+    border-color: #b6e7fc;
+  }
+  .icons a:nth-child(2):hover{
+    background: #46C1F6;
+  }
+  .icons a:nth-child(3){
+    color: #e1306c;
+    border-color: #f5bccf;
+  }
+  .icons a:nth-child(3):hover{
+    background: #e1306c;
+  }
+  .icons a:nth-child(4){
+    color: #25D366;
+    border-color: #bef4d2;
+  }
+  .icons a:nth-child(4):hover{
+    background: #25D366;
+  }
+  .icons a:nth-child(5){
+    color: #0088cc;
+    border-color: #b3e6ff;
+  }
+  .icons a:nth-child(5):hover{
+    background: #0088cc;
+  }
+  .icons a:hover{
+    color: #fff;
+    border-color: transparent;
+  }
+  .icons a i{
+    transition: all 0.3s ease-in-out;
+    
+  }
+  .icons a:hover i{
+
+    transform: scale(1.5);
+  }
+  .field{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+  }
+
+  .content .field{
+    margin: 12px 0 -5px 0;
+    height: 35px;
+    border-radius: 4px;
+    padding: 0 5px;
+    border: 1px solid #e1e1e1;
+    
+  }
+  .field i{
+    width: 50px;
+    text-align: center;
+  }
+
+  .field input{
+    font-size: 11px;
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 100%;
+  }
+
+  .field button{
+    
+    font-family: 'Poppins', sans-serif;
+    padding: 5px 18px;
+    color: #fff;
+    background-color: #982943;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-weight: 600;
+
+
+  }

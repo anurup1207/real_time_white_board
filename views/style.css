@@ -7,10 +7,10 @@ html{
 body{
     overflow: hidden;
     margin: 0;
-    padding: 10px;
-    padding-left: 22px;
-    padding-right: 22px;
-    padding-bottom: 22px;
+    padding: 1px;
+    /* padding-left: 8px;
+    padding-right: 8px; */
+    padding-bottom: 16px;
     height: 100%;
     background-color: #EFEFEF;
 
@@ -23,7 +23,7 @@ canvas{
 
 .heading-cont{
     /* background-color: #ff4757; */
-    height: 3.5rem;
+    height: 3rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -34,7 +34,7 @@ canvas{
 
 }
 .page-name{
-    font-size: 20px;
+    font-size: 16px;
     font-family: 'Segoe UI', Tahoma,  Verdana, sans-serif;
     margin: auto;
     position: absolute;
@@ -75,9 +75,9 @@ canvas{
    
 }
 .avatar{
-    font-size: 16px;
-    height: 3rem;
-    width: 3rem;
+    font-size: 12px;
+    height: 2.2rem;
+    width: 2.2rem;
     
     border-radius: 50%;
     border: 3px solid white;
@@ -93,7 +93,7 @@ canvas{
 .avatar::after{
     content: attr(data-label);
     color: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-family: 'Readex Pro' , sans-serif;
     display: flex;
     flex-direction: column;
@@ -102,8 +102,8 @@ canvas{
 }
 .hidden-user{
     font-size: 16px;
-    height: 2.90rem;
-    width: 2.90rem;
+    height: 2.10rem;
+    width: 2.10rem;
     background-color: #EFEFEF;
     border-radius: 50%;
     border: 2px solid black;
@@ -130,11 +130,11 @@ canvas{
 
 .share-link-cont{
     /* background-color: #2ed573; */
-    height: 3rem;
-    width: 8.5rem;
+    height: 2.5rem;
+    width: 7.5rem;
     border: 2px solid black;
     border-radius: 30px 30px 30px 30px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-family: 'Segoe UI', Tahoma,  Verdana, sans-serif;
     cursor: pointer;
     display: flex;
@@ -167,19 +167,20 @@ canvas{
 .tools-cont{
     display: flex;
     text-align: center;
-    height: 4rem;
-    width: 35vw;
+    height: 50px;
+    width: 560px;
     background-color: #EFEFEF;
     justify-content: space-evenly;
+    
     border-radius: 30px;
     position: relative;
-    top: 91%;
+    top: 90%;
   
 }
 .tools-cont > *{
     position: relative;
     font-size: 24px;
-    top: 35%;
+    top: 30%;
 }
 .options-cont{
     height: 4rem;

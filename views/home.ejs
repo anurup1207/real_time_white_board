@@ -137,13 +137,13 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 
     <script>
-        // const baseUrl = 'https://team-board.onrender.com';
-        const baseUrl = 'http://localhost:3000';
+        const baseUrl = 'https://team-board.onrender.com';
+        // const baseUrl = 'http://localhost:3000';
         async function generateLinkAndCode() {
             // Dummy data (replace with actual data from your API)
             
             
-            const res = await fetch(baseUrl + '/home/getId',{
+            const res = await fetch('/home/getId',{
                 method:'GET',
             })
             const data=await res.json();

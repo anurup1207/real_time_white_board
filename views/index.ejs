@@ -43,6 +43,18 @@
     <div class="main-canvas-cont">
 
       <canvas></canvas>
+      <div class="pencil-tool-cont">
+        <div class="pencil-width-cont">
+          <input type="range" min="2" max="10" value="3" class="pencil-width" />
+        </div>
+        <div class="pencil-color-cont">
+          <div class="black pencil-color"></div>
+          <div class="blue pencil-color"></div>
+          <div class="red pencil-color"></div>
+          <div class="green pencil-color"></div>
+          <div class="orange pencil-color"></div>
+        </div>
+      </div>
       <div class="tools-cont">
         <i class="pencil fa-solid fa-pen-nib"></i>
         <i class="color fa-solid fa-palette"></i>
@@ -52,6 +64,17 @@
         <i class="upload fa-solid fa-upload"></i>
         <i class="undo fa-solid fa-rotate-left"></i>
         <i class="redo fa-solid fa-rotate-right"></i>
+      </div>
+      <div class="profile-section">
+        <div class="close" id="profile-sec-close"><i class="fa-solid fa-xmark"></i></div>
+        <div class="profile-section-cont">
+          <span></span>
+          <p></p>
+          <div class="profile-button" id="switch-button">Switch Account</div>
+          <div class="profile-button" id="log-out">Log Out</div>
+        </div>
+        
+
       </div>
       <!-- Start Popup DIV -->
       <div class="popup">
@@ -78,18 +101,7 @@
       </div>
     <!-- End Popup DIV -->
     </div>
-    <div class="pencil-tool-cont">
-      <div class="pencil-width-cont">
-        <input type="range" min="2" max="10" value="3" class="pencil-width" />
-      </div>
-      <div class="pencil-color-cont">
-        <div class="black pencil-color"></div>
-        <div class="blue pencil-color"></div>
-        <div class="red pencil-color"></div>
-        <div class="green pencil-color"></div>
-        <div class="orange pencil-color"></div>
-      </div>
-    </div>
+    
     <div class="eraser-tool-cont">
       <input type="range" min="2" max="10" value="3" class="eraser-width" />
     </div>
@@ -141,24 +153,7 @@
       user = '<%= data.user %>';
       user_email = '<%= data.user_email %>';
 
-      var avatarDiv =document.createElement("div")
-      avatarDiv.setAttribute("class","avatar");
-      let data_label= user.substring(0, 2).toUpperCase();
-      avatarDiv.setAttribute("data-label",`${data_label}`);
-
-      const charCodeRed =avatarDiv.dataset.label.charCodeAt(0);
-      const charCodeGreen =avatarDiv.dataset.label.charCodeAt(1) || charCodeRed;
-
-      const red = Math.pow(charCodeRed,7) % 200;
-      const green = Math.pow(charCodeGreen,3) % 200;
-      const blue =(red + green) % 200;
-      avatarDiv.style.backgroundColor =`rgb(${red},${green},${blue})`;
-      avatarDiv.style.cursor="pointer";
-      avatarDiv.style.border="3px solid black";
-
-      let headingRightCont = document.querySelector(".heading-right-cont");
-      headingRightCont.append(avatarDiv);
-
+      
      
       socket.emit('joinRoom', roomId,user,user_email);
     </script>

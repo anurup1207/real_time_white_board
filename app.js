@@ -70,6 +70,7 @@ app.use(cookieParser());
 
 // All my routes
 app.use("/user", userRoute);
+
 app.use("/id",connectEnsureLogIn.ensureLoggedIn('/login'), urlId);
 app.use("/home",connectEnsureLogIn.ensureLoggedIn('/login'), homeRoute);
 app.use("/", staticRouter);

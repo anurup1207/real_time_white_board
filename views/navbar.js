@@ -1,7 +1,11 @@
 let joinedMembers = document.querySelector(".joined-members");
 let shareLinkCont = document.querySelector(".share-link-cont");
-let closeShareLinkCont = document.querySelector(".close");
+
 let popup = document.querySelector(".popup");
+let closeShareLinkCont = popup.querySelector(".close");
+
+
+let profileSection = document.querySelector(".profile-section");
 
 
 let whatsapp= document.querySelector(".whatsapp");
@@ -11,7 +15,7 @@ let linkedin = document.querySelector(".linkedin");
 let telegram= document.querySelector(".telegram");
 
 
-
+// start share through varrious social media handles
 const pageUrl=encodeURIComponent(location.href);
 const message= encodeURI(`is inviting you to join a team-board session with him. Click the link to join the room `);
 
@@ -21,29 +25,6 @@ const twitterApi = `http://twitter.com/share?&url=${pageUrl}&text=${encodeURICom
 const linkedinApi= `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`
 const telegramApi = `https://t.me/share/url?url=${pageUrl}&text=${encodeURIComponent(user)} ${message}`;
 
-
-
-
-
-let field = document.querySelector(".field");
-let copyVal = field.querySelector(".copy-val");
-copyVal.value=location.href;
-
-
-let copyButton = field.querySelector(".copy-button");
-
-copyVal.addEventListener("focus",(e)=>{
-    copyVal.select();
-});
-copyButton.addEventListener("click",(e)=>{
-    const text=copyVal.value;
-    copyVal.select();
-    navigator.clipboard.writeText(text);
-
-    copyButton.innerHTML='Copied';
-    setTimeout(()=>copyButton.innerHTML='Copy',1000);
-
-});
 
 whatsapp.addEventListener("click",(e)=>{
     window.open(url = whatsappApi, target='blank');
@@ -64,9 +45,119 @@ telegram.addEventListener("click",(e)=>{
     window.open(url = telegramApi, target='blank');
     
 });
+// end share through varrious social media handles
 
+var avatarDiv =document.createElement("div")
+avatarDiv.setAttribute("class","avatar");
+let data_label= user.substring(0, 2).toUpperCase();
+avatarDiv.setAttribute("data-label",`${data_label}`);
+
+const charCodeRed =avatarDiv.dataset.label.charCodeAt(0);
+const charCodeGreen =avatarDiv.dataset.label.charCodeAt(1) || charCodeRed;
+
+const red = Math.pow(charCodeRed,7) % 200;
+const green = Math.pow(charCodeGreen,3) % 200;
+const blue =(red + green) % 200;
+avatarDiv.style.backgroundColor =`rgb(${red},${green},${blue})`;
+avatarDiv.style.cursor="pointer";
+avatarDiv.style.border="3px solid rgba(152, 41, 67, 0.5)";
+avatarDiv.style.boxShadow=`0 0 2px 2px rgb(${red-10},${green-10},${blue-10})`;
+
+let headingRightCont = document.querySelector(".heading-right-cont");
+headingRightCont.append(avatarDiv);
+
+var avatarDiv2 =document.createElement("div")
+avatarDiv2.setAttribute("class","avatar");
+let data_label2= user.substring(0, 2).toUpperCase();
+avatarDiv2.setAttribute("data-label",`${data_label2}`);
+avatarDiv2.style.backgroundColor =`rgb(${red},${green},${blue})`;
+avatarDiv2.style.height="4rem";
+avatarDiv2.style.width="4rem";
+
+
+
+let profileSectionCont=document.querySelector(".profile-section-cont");
+profileSectionCont.insertBefore(avatarDiv2, profileSectionCont.firstChild);
+
+profileSectionCont.querySelector('span').innerHTML=user;
+let pb=profileSectionCont.querySelector('p');
+pb.innerHTML=user_email;
+pb.style.fontSize="10px";
+
+// start profileSection eventListner
+
+let closeProfileSection= profileSection.querySelector(".close");
+closeProfileSection.addEventListener("click",()=>{
+    document.querySelector(".profile-section").style.display="none";
+});
+
+let profileButton=headingRightCont.querySelector(".avatar");
+profileButton.addEventListener("click",()=>{
+    document.querySelector(".profile-section").style.display="block";
+
+});
+
+// end profileSection eventListner
+
+
+// start copy link button listener
+
+let field = document.querySelector(".field");
+let copyVal = field.querySelector(".copy-val");
+copyVal.value=location.href;
+
+
+let copyButton = field.querySelector(".copy-button");
+
+copyVal.addEventListener("focus",(e)=>{
+    copyVal.select();
+});
+copyButton.addEventListener("click",(e)=>{
+    const text=copyVal.value;
+    copyVal.select();
+    navigator.clipboard.writeText(text);
+
+    copyButton.innerHTML='Copied';
+    setTimeout(()=>copyButton.innerHTML='Copy',1000);
+
+});
+// end copy link button listener
+
+let logout=document.getElementById("log-out");
+logout.addEventListener("click",()=>{
+    window.location.href="/user/logout";
+
+
+});
+
+// let switchAccount = document.getElementById("switch-button");
+// switchAccount.addEventListener("click",async()=>{
+//     console.log(location.href);
+//     const pageURL=location.href;
+//     const index = pageURL.indexOf("room/");
+//     const result = index !== -1 ? pageURL.substring(index + 5) : null;
+//     console.log(result);
+//     const postData = {
+//         id: result,
+//       };
+//     const response=await fetch('/user/switchaccount', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(postData)
+//     });
+
+//       respone=await response.json();
+//       window.location.href=`id/room/${response.id}`;
+
+
+// });
+
+
+
+// start shareLinkCont addEventListener
 shareLinkCont.addEventListener("click",(e)=>{
-    
     popup.style.display="block";
 });
 
@@ -74,6 +165,8 @@ closeShareLinkCont.addEventListener("click",(e)=>{
     popup.style.display="none";
 
 });
+// end shareLinkCont addEventListener
+
 
 
 

@@ -21,6 +21,25 @@ router.post(
   })
 );
 
+router.get("/logout",(req,res,next)=>{
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/home');
+  });
+  res.redirect('/home');
+});
+
+// router.post("/switchaccount",(req,res,next)=>{
+//   const redirectingid=req.body;
+//   console.log(redirectingid);
+//   req.logout(function(err) {
+//     if (err) { return next(err); }
+//     return res.redirectingid;
+    
+//   });
+  
+
+// })
 
 
 module.exports = router;

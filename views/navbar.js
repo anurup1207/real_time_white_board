@@ -119,6 +119,7 @@ copyButton.addEventListener("click",(e)=>{
 
     copyButton.innerHTML='Copied';
     setTimeout(()=>copyButton.innerHTML='Copy',1000);
+    // return true;
 
 });
 // end copy link button listener
@@ -130,29 +131,37 @@ logout.addEventListener("click",()=>{
 
 });
 
-// let switchAccount = document.getElementById("switch-button");
-// switchAccount.addEventListener("click",async()=>{
-//     console.log(location.href);
-//     const pageURL=location.href;
-//     const index = pageURL.indexOf("room/");
-//     const result = index !== -1 ? pageURL.substring(index + 5) : null;
-//     console.log(result);
-//     const postData = {
-//         id: result,
-//       };
-//     const response=await fetch('/user/switchaccount', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(postData)
-//     });
+const createTodo = async (todo) => {
+    let options = {
+            method: "POST",
+            headers: {
+                    "Content-type": "application/json"
+            },
+            body: JSON.stringify(todo),
+    }
+    let p = await fetch('/user/switchaccount', options)
+    let response = await p.json()
+    return response
+}
 
-//       respone=await response.json();
-//       window.location.href=`id/room/${response.id}`;
+let switchAccount = document.getElementById("switch-button");
+switchAccount.addEventListener("click",async()=>{
+    console.log(location.href);
+    const pageURL=location.href;
+    const index = pageURL.indexOf("room/");
+    const result = index !== -1 ? pageURL.substring(index + 5) : null;
+    console.log(result);
+    const postData = {
+        id: result,
+      };
+     let id = await createTodo(postData);
+    //  console.log(id);
+    //   const result= response.json();
+    //   console.log(response.id);
+      window.location.href=`${id.id}`;
 
 
-// });
+});
 
 
 
@@ -167,12 +176,69 @@ closeShareLinkCont.addEventListener("click",(e)=>{
 });
 // end shareLinkCont addEventListener
 
+// let joinedMemberNameSection= document.querySelector(".joined-member-name-section");
+
+function makeAvtar(user){
+    
+    var avatarDiv =document.createElement("div")
+    avatarDiv.setAttribute("class","avatar");
+    let data_label= user.substring(0, 2).toUpperCase();
+    avatarDiv.setAttribute("data-label",`${data_label}`);
 
 
+    const charCodeRed =avatarDiv.dataset.label.charCodeAt(0);
+    const charCodeGreen =avatarDiv.dataset.label.charCodeAt(1) || charCodeRed;
+
+    const red = Math.pow(charCodeRed,7) % 200;
+    const green = Math.pow(charCodeGreen,3) % 200;
+    const blue =(red + green) % 200;
+    avatarDiv.style.backgroundColor =`rgb(${red},${green},${blue})`;
+    return avatarDiv;
+}
+// let avatarPortion= document.querySelector(".avatar-portion");
+let joinedMemberSection= document.querySelector(".joined-member-section");
+
+function AddUserCellJoinedMemberSection(all_users){
+    let divToDelete = document.querySelector('.joined-member-name-section');
+
+    while (divToDelete.firstChild) {
+        divToDelete.removeChild(divToDelete.firstChild);
+    }
+    let numberOfMembersJoined=joinedMemberSection.querySelector("span");
+    numberOfMembersJoined.innerHTML=`${all_users.length} people`;
+    all_users.forEach(user => {
+        
+        let userCell= document.createElement("div");
+        userCell.setAttribute("class","user-cell");
+        
+        let avatarPortion= document.createElement("div");
+        avatarPortion.setAttribute("class","avatar-portion");
+
+        let namePortion= document.createElement("div");
+        namePortion.setAttribute("class","name-portion");
+
+        var avatarDiv=makeAvtar(user[1]);
+        avatarPortion.append(avatarDiv);
+
+        namePortion.innerHTML=user[1];
+
+        let iconPortion=document.createElement("i")
+        iconPortion.setAttribute("class","icon-portion fa-solid fa-circle");
+        
+
+        userCell.append(avatarPortion);
+        userCell.append(namePortion);
+        userCell.appendChild(iconPortion);
+        
+        divToDelete.append(userCell);
+        
+    });
+
+}
 
 socket.on("updateUserList",(all_users)=>{
-    
-
+    let all_joined_users=all_users;
+    AddUserCellJoinedMemberSection(all_joined_users);
     let divToDelete = document.querySelector('.joined-members');
 
     while (divToDelete.firstChild) {
@@ -183,23 +249,8 @@ socket.on("updateUserList",(all_users)=>{
     all_users = all_users.filter(user_details => user_details[0]!= user_email);
     
     for(let i=0;i<Math.min(3,all_users.length);i++){
-
         let user=all_users[i][1];
-        var avatarDiv =document.createElement("div")
-        avatarDiv.setAttribute("class","avatar");
-        let data_label= user.substring(0, 2).toUpperCase();
-        avatarDiv.setAttribute("data-label",`${data_label}`);
-  
-
-        const charCodeRed =avatarDiv.dataset.label.charCodeAt(0);
-        const charCodeGreen =avatarDiv.dataset.label.charCodeAt(1) || charCodeRed;
-
-        const red = Math.pow(charCodeRed,7) % 200;
-        const green = Math.pow(charCodeGreen,3) % 200;
-        const blue =(red + green) % 200;
-        avatarDiv.style.backgroundColor =`rgb(${red},${green},${blue})`;
-
-        
+        var avatarDiv =makeAvtar(user);
         joinedMembers.append(avatarDiv);
 
     }
@@ -214,4 +265,13 @@ socket.on("updateUserList",(all_users)=>{
 
     }
     
+})
+
+let joinedMemberSectionclose=joinedMemberSection.querySelector(".close");
+joinedMembers.addEventListener("click",()=>{
+    
+    joinedMemberSection.style.display="flex";
+})
+joinedMemberSectionclose.addEventListener("click",()=>{
+    joinedMemberSection.style.display="none";
 })

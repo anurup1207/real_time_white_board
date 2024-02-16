@@ -29,17 +29,17 @@ router.get("/logout",(req,res,next)=>{
   res.redirect('/home');
 });
 
-// router.post("/switchaccount",(req,res,next)=>{
-//   const redirectingid=req.body;
-//   console.log(redirectingid);
-//   req.logout(function(err) {
-//     if (err) { return next(err); }
-//     return res.redirectingid;
+router.post("/switchaccount",(req,res,next)=>{
+  const redirectingid=req.body;
+  console.log(redirectingid);
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.send(redirectingid)
     
-//   });
+  });
   
 
-// })
+})
 
 
 module.exports = router;

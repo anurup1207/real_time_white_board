@@ -157,13 +157,107 @@ canvas{
     right: 1rem;
     top: 1rem;
 }
-.profile-section{
+.joined-member-section .close{
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+}
+
+.joined-member-section , .profile-section {
+    display: block;
     height: 20rem;
     width: 15rem;
     padding: 2rem;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 16px;
+}
+.joined-member-section{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    right: 11.2rem;
+    top: 4rem;
+}
+
+.joined-member-section > span{
+
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #efefef;
+    text-align: center;
+    width: 10rem;
+
+}
+
+.joined-member-section .joined-member-name-section{
+    margin-top: 10px;
+    /* height: 20rem;s */
+    overflow-y: auto;
+    
+   
+}
+.joined-member-section .joined-member-name-section::-webkit-scrollbar {
+    width: 1px;
+    opacity: 30;
+  }
+.user-cell{
+    /* background-color: #2ed573; */
+    height: 2.5rem;
+    width: 12rem;
+    margin: 10px;
+    border-radius: 16px;
+    display: flex;
+    text-align: center;
+    padding: 3px;
+    /* margin: auto; */
+    border:1px solid #5f5e5e;
+    font-family: 'Segoe UI', Tahoma,  Verdana, sans-serif;
+    /* justify-content: space-evenly; */
+
+
+    
+}
+.avatar-portion{
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.name-portion{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    font-size: 12px;
+    
+
+}
+.icon-portion{
+    width: 15%;
+    font-size: 10px;
+    margin: auto;
+    color: #2ed573;
+    filter: drop-shadow(0 0 2px 2px #2ed573 );
+    
+}
+.icon-portion i{
+    text-shadow: 0 0 2px 2px #2ed573  ;
+
+}
+.user-cell > span{
+    /* margin: auto;/ */
+
+    margin-top: auto;
+    /* display: flex; */
+
+
+    /* margin-bottom: auto; */
+}
+.profile-section{
     position: absolute;
     right: 3rem;
     top: 4rem;

@@ -1,3 +1,6 @@
 @tailwind base;
 @tailwind components;
+.navbtn{
+    @apply flex justify-center items-center cursor-pointer text-custom-brown-400 font-sans hover:scale-150 transform transition-transform duration-300;
+}
 @tailwind utilities;

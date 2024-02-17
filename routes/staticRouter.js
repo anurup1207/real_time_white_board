@@ -9,6 +9,10 @@ router.get("/signup",getSignupPage);
 
 router.get("/login",getLoginPage);
 
+router.get("/",(req,res)=>{
+    res.redirect("/home");
+})
+
 
 
 module.exports=router;

@@ -16,7 +16,7 @@ async function HandleGenerateNewShortURL(req, res) {
 
 async function getHomePage(req,res){
     const allIds = await URLID.find({createdBy:req.user._id});
-    return res.render("home",{
+    return res.render("home1",{
       ids : allIds,
       roomURL : process.env.baseURL,
     });

@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./public/**/*.css", "./views/*.ejs"],
+  content: ["./public/**/*.css", "./views/*.ejs","./views/*.css"],
   theme: {
     extend: {
       colors: {
@@ -11,7 +11,28 @@ module.exports = {
         'custom-brown':{
           "400":"#982943cc",
           "500":"#982943",
-        }
+        },
+        'whatsapp-color':{
+          "600": "#25D366",
+          "400": "#bef4d2",
+        },
+        'telegram-color':{
+          "600":"#0088cc",
+          "400":"#b3e6ff",
+        },
+        'twitter-color':{
+          "600":"#46C1F6",
+          "400":"#b6e7fc",
+        },
+        'linkedin-color':{
+          "600":"#0077B5",
+          "400":"#6bcafe",
+        },
+        'facebook-color':{
+          "600":"#1877F2",
+          "400":"#b7d4fb",
+        },
+        // 'custom-'
       }
     },
     fontFamily: {
@@ -49,6 +70,10 @@ module.exports = {
     'Segoe UI Symbol', 
     'Noto Color Emoji'
   ]
+    },
+
+    boxShadow:{
+      'custom-box-shadow' : '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);'
     }
   },
   plugins: [],

@@ -3,4 +3,7 @@
 .navbtn{
     @apply flex justify-center items-center cursor-pointer text-custom-brown-400 font-sans hover:scale-150 transform transition-transform duration-300;
 }
+.sharebtnstyle{
+    @apply h-12 w-12 border-2 border-transparent rounded-full flex items-center justify-center hover:text-white hover:border-transparent;
+}
 @tailwind utilities;

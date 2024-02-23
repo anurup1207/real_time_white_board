@@ -6,4 +6,10 @@
 .sharebtnstyle{
     @apply h-12 w-12 border-2 border-transparent rounded-full flex items-center justify-center hover:text-white hover:border-transparent;
 }
+.navsigninbutton{
+    @apply cursor-pointer flex justify-center items-center border border-solid border-black h-8 w-28 rounded-3xl hover:bg-custom-brown-400 hover:text-white text-custom-brown-500 hover:scale-110 transform transition-transform duration-300;
+}
+.navloggedinuser{
+    @apply bg-white h-10 w-10 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transform transition-transform duration-300;
+}
 @tailwind utilities;

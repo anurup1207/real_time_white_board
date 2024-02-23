@@ -72,7 +72,7 @@ app.use(cookieParser());
 app.use("/user", userRoute);
 
 app.use("/id",connectEnsureLogIn.ensureLoggedIn('/login'), urlId);
-app.use("/home",connectEnsureLogIn.ensureLoggedIn('/login'), homeRoute);
+app.use("/home",homeRoute);
 app.use("/", staticRouter);
 // app.use("/",(req,res)=>{
 //   const mydata={

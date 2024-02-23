@@ -15,12 +15,22 @@ async function HandleGenerateNewShortURL(req, res) {
 }
 
 async function getHomePage(req,res){
+  if(req.user){
     const allIds = await URLID.find({createdBy:req.user._id});
     return res.render("home",{
+      islogin: true,
       ids : allIds,
       roomURL : process.env.baseURL,
       user:req.user.name,
     });
+  }else{
+    return res.render("home",{
+      islogin:false,
+      ids:[],
+      roomURL:process.env.baseURL,
+      user:"NA",
+    });
+  }
 }
 
 module.exports={

@@ -67,18 +67,21 @@
               </div>
               
             </div>
+            <!-- Start Profile Section -->
+            <div class="profile-section absolute h-[20rem] w-[14rem] rounded-2xl top-20 right-4 shadow-custom-box-shadow p-8 hidden">
+              <div class="close flex items-center justify-center rounded-full bg-custom-grey-200 h-[21px] w-[21px] cursor-pointer absolute top-4 right-4 text-sm" id="profile-sec-close"><i class="fa-solid fa-xmark"></i></div>
+              <div class="profile-section-cont relative top-2 flex flex-col items-center justify-center">
+                <span></span>
+                <p class="text-[12px] border-b-2 pb-4 border-x-custom-grey-200 w-full text-center m-4">Welcome</p>
+                <div class="profile-button h-12 rounded-[10px] bg-custom-grey-200 w-full flex justify-center items-center mb-2 font-semibold text-[14px] cursor-pointer hover:bg-custom-grey-500 hover:border border-black hover:text-custom-brown-500" id="switch-button">Switch Account</div>
+                <div class="profile-button h-12 rounded-[10px] bg-custom-grey-200 w-full flex justify-center items-center mb-2 font-semibold text-[14px] cursor-pointer hover:bg-custom-grey-500 hover:border border-black hover:text-custom-brown-500" id="log-out">Log Out</div>
+              </div>
+            </div>
+            <!-- End Profile Section -->
           </nav>
     </header>
     <div class="parent-div h-screen flex items-center"> 
-      <!-- <div class="profile-section absolute bg-slate-600 h-">
-        <div class="close" id="profile-sec-close"><i class="fa-solid fa-xmark"></i></div>
-        <div class="profile-section-cont">
-          <span></span>
-          <p></p>
-          <div class="profile-button" id="switch-button">Switch Account</div>
-          <div class="profile-button" id="log-out">Log Out</div>
-        </div>
-      </div> -->
+      
         <div class="parent-div w-1/2 pl-20">
             <div class="">
                 <div class="font-sans text-5xl font-semibold"> Real Time Collaboration <br>for Everyone</div>
@@ -127,10 +130,13 @@
         let linkedin = document.querySelector(".linkedin");
         let telegram= document.querySelector(".telegram");
 
+        let profileSection=document.querySelector(".profile-section");
+
         const message= encodeURI(`is inviting you to join a team-board session with him. Click the link to join the room `);
         let islogin =`<%=islogin %>`;
         const baseUrl = '<%=roomURL %>';
         const user='<%=user %>';
+       
   
         
 
@@ -224,9 +230,57 @@
 
        if(islogin==='true'){
 
+              
+              let userLoggedInButton = document.createElement("div");
+              userLoggedInButton.setAttribute("class",".user-loggedin-button");
+              let data_label= user.substring(0, 2).toUpperCase();
+              userLoggedInButton.setAttribute("data-label",`${data_label}`);
+              userLoggedInButton.classList.add("navloggedinuser");
+
+
+                const charCodeRed =userLoggedInButton.dataset.label.charCodeAt(0);
+                const charCodeGreen =userLoggedInButton.dataset.label.charCodeAt(1) || charCodeRed;
+
+                const red = Math.pow(charCodeRed,7) % 200;
+                const green = Math.pow(charCodeGreen,3) % 200;
+                const blue =(red + green) % 200;
+                userLoggedInButton.style.backgroundColor =`rgb(${red},${green},${blue})`;
+                userLoggedInButton.style.border="3px solid rgba(152, 41, 67, 0.5)";
+                userLoggedInButton.style.boxShadow=`0 0 2px 2px rgb(${red-10},${green-10},${blue-10})`;
+                const userLoggedInInitials = document.createElement("div");
+                userLoggedInInitials.classList.add("text-white");
+                userLoggedInInitials.classList.add("text-[1.1rem]")
+                userLoggedInInitials.innerHTML=data_label;
+
+                userLoggedInButton.appendChild(userLoggedInInitials);
+
+                navBar.append(userLoggedInButton);
+            
+                  userLoggedInButton.addEventListener("click",()=>{
+                  document.querySelector(".profile-section").classList.remove("hidden");
+                });
+               
+
+        
+
+       }else{
+                let userSignInButton = document.createElement("div");
+                userSignInButton.setAttribute("class",".user-signin-button");
+                userSignInButton.innerHTML="SignIn";
+                userSignInButton.classList.add("navsigninbutton");
+                  
+                navBar.append(userSignInButton);
+
+                userSignInButton.addEventListener("click",()=>{
+                  window.location.href='/login';
+                })
+       }
        
+
+
+
        let userLoggedInButton = document.createElement("div");
-       userLoggedInButton.setAttribute("class",".user-loggedin-button");
+       userLoggedInButton.setAttribute("class","display");
        let data_label= user.substring(0, 2).toUpperCase();
        userLoggedInButton.setAttribute("data-label",`${data_label}`);
        userLoggedInButton.classList.add("navloggedinuser");
@@ -239,30 +293,70 @@
         const green = Math.pow(charCodeGreen,3) % 200;
         const blue =(red + green) % 200;
         userLoggedInButton.style.backgroundColor =`rgb(${red},${green},${blue})`;
-        userLoggedInButton.style.border="3px solid rgba(152, 41, 67, 0.5)";
-        userLoggedInButton.style.boxShadow=`0 0 2px 2px rgb(${red-10},${green-10},${blue-10})`;
         const userLoggedInInitials = document.createElement("div");
+        userLoggedInButton.classList.add("h-14");
+        userLoggedInButton.classList.add("w-14");
         userLoggedInInitials.classList.add("text-white");
         userLoggedInInitials.classList.add("text-[1.1rem]")
         userLoggedInInitials.innerHTML=data_label;
 
         userLoggedInButton.appendChild(userLoggedInInitials);
 
-        navBar.append(userLoggedInButton);
+        let profileSectionCont = document.querySelector(".profile-section-cont");
+
+        profileSectionCont.insertBefore(userLoggedInButton, profileSectionCont.firstChild);
+        profileSectionCont.querySelector('span').innerHTML=user;
+
+       
+        profileSection.querySelector(".close").addEventListener("click",()=>{
+          profileSection.classList.add("hidden");
+
+        })
+
+
+
+        let logout=document.getElementById("log-out");
+        logout.addEventListener("click",()=>{
+            window.location.href="/user/logout";
+
+
+        });
+
+        const createTodo = async (todo) => {
+            let options = {
+                    method: "POST",
+                    headers: {
+                            "Content-type": "application/json"
+                    },
+                    body: JSON.stringify(todo),
+            }
+            let p = await fetch('/user/switchaccount', options)
+            let response = await p.json()
+            return response
+        }
+
+        let switchAccount = document.getElementById("switch-button");
+        switchAccount.addEventListener("click",async()=>{
+            console.log(location.href);
+            const pageURL=location.href;
+            const index = pageURL.indexOf("room/");
+            const result = index !== -1 ? pageURL.substring(index + 5) : null;
+            console.log(result);
+            const postData = {
+                id: result,
+              };
+            let id = await createTodo(postData);
+            //  console.log(id);
+            //   const result= response.json();
+            //   console.log(response.id);
+              window.location.href=`/login`;
+
+
+        });
 
 
         
-
-       }else{
-        let userSignInButton = document.createElement("div");
-        userSignInButton.setAttribute("class",".user-signin-button");
-        userSignInButton.innerHTML="SignIn";
-        userSignInButton.classList.add("navsigninbutton");
-          
-        navBar.append(userSignInButton);
-       }
-
-
+  
     </script>
 </body>
 </html>

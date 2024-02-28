@@ -53,7 +53,7 @@ sendMessageButton.addEventListener("click", (e) => {
   e.preventDefault();
   const message = messageInput.value;
   if (message != "") {
-    socket.emit("sendMessage", { roomId, data: message });
+    socket.emit("sendMessage", { roomId, data: message, name: user });
   }
   messageInput.value = "";
 });
@@ -69,10 +69,17 @@ function startRecognitionWhenEnd() {
 }
 
 function recieveMessage(message) {
-  let recieved_cont = document.createElement("div");
-  recieved_cont.setAttribute("class", "message");
-  recieved_cont.innerHTML = message;
+  let recieved_cont = document.createElement("span");
+  
+  let sendPerson= document.createElement("div");
+  sendPerson.setAttribute("class", "send-person");
+  sendPerson.innerHTML=message.name;
+  sendPerson.style.fontWeight="bold";
 
+  recieved_cont.setAttribute("class", "message");
+  recieved_cont.innerHTML = message.data;
+
+  messageContainer.append(sendPerson);
   messageContainer.append(recieved_cont);
   messageContainer.scrollTop = messageContainer.scrollHeight;
 }

@@ -148,7 +148,7 @@ io.on("connection", (socket) => {
     io.sockets.in(data.roomId).emit("closeNoteAction", data.data);
   });
   socket.on("sendMessage", (data) => {
-    io.sockets.in(data.roomId).emit("recieveMessage", data.data);
+    io.sockets.in(data.roomId).emit("recieveMessage", data);
   });
 
   socket.on("disconnect", () => {

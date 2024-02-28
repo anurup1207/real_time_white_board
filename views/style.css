@@ -516,9 +516,10 @@ img{
     border-radius: 3%;
     margin: 0.5rem;
     padding: 2.5rem;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-evenly;
+
     
     
 }
@@ -579,20 +580,32 @@ img{
     padding-right: 10px;
     padding-top: 7px;
     padding-bottom: 7px;
-    font-size: 12px;
+    font-size: 14px;
     border: 2px solid #efefef;
     border-radius: 20px;
     word-wrap: break-word;
+    height: auto;
+    display: block;
     
  
-    /* width: 100%; */
+   
 
 }
-.send-person{
-    font-size: 12px;
+.send-person-cont{
+    display: flex;
+    
+}
+
+.send-person , .send-person-time{
+    font-size: 10px;
     padding-left: 10px;
-    margin-top: 20px;
-    margin-bottom: 5px;
+    margin-top: 30px;
+    
+    
+}
+.send-person-time{
+    color: #5f5e5e;
+    
 }
 #message-cont-send-cont{
     display: flex;

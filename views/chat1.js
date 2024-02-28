@@ -68,18 +68,34 @@ function startRecognitionWhenEnd() {
   recognition.start();
 }
 
-function recieveMessage(message) {
+async function recieveMessage(message) {
   let recieved_cont = document.createElement("span");
-  
+  const date = new Date();
+
+  let hours=  date.getHours();
+  let minutes=  date.getMinutes();
+  // console.log(hours);
+  // console.log(minutes);
+  let sendPersonCont = document.createElement("div");
+  sendPersonCont.setAttribute("class", "send-person-cont");
+
   let sendPerson= document.createElement("div");
+  let sendPersonTime=document.createElement("div");
+
+  sendPersonTime.setAttribute("class","send-person-time");
   sendPerson.setAttribute("class", "send-person");
+
+  sendPersonTime.innerHTML=`${hours}:${minutes}`
   sendPerson.innerHTML=message.name;
   sendPerson.style.fontWeight="bold";
 
   recieved_cont.setAttribute("class", "message");
   recieved_cont.innerHTML = message.data;
+  
+  sendPersonCont.append(sendPerson);
+  sendPersonCont.append(sendPersonTime);
 
-  messageContainer.append(sendPerson);
+  messageContainer.append(sendPersonCont);
   messageContainer.append(recieved_cont);
   messageContainer.scrollTop = messageContainer.scrollHeight;
 }

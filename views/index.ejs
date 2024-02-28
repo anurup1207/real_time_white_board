@@ -123,22 +123,27 @@
     <div class="message-icon">
       <i class="fa-solid fa-message"></i>
     </div>
+   
+
+    <!-- start message cont  -->
     <div class="message-cont">
       
       <div class="message-cont-upper-div">
 
-        <span class="message-cont-heading">Messages</span>
-        <i class="message-cont-cross-icon fa-regular fa-circle-xmark"></i>
+        <span class="message-cont-heading">In room Messages</span>
+        <div class="message-cont-cross-icon"><i class="fa-solid fa-xmark"></i></div>
 
       </div>
-
+      <div class="message-for-speech-text">
+        <p>Tap the microphone icon to enable speech-to-text in chat. Speak, and your words will be converted to text automatically.</p>
+      </div>
       <div class="message-cont-box">
       </div>
 
       <div class="message-cont-send-area">
         <form action="#" id="message-cont-send-cont" autocomplete="off">
-          <!-- <input type="text" name="messageInp" id="messageInp"> -->
-          <textarea name="messageInp" id="messageInp" ></textarea>
+          <input type="text" name="messageInp" id="messageInp" placeholder="Enter the text here...">
+         
           <button type="submit" class="send-message-button"> <i class="message-cont-send-icon fa-solid fa-arrow-up"></i> </button>
           <button  class="audio-message-button"> <i class="message-cont-audio-icon fa-solid fa-microphone"></i> </button>
         </form>
@@ -146,6 +151,9 @@
       </div>
    
     </div>
+    <!-- end message cont -->
+
+
     <!-- <div class="sticky-cont">
       <div class="header-cont">
         <div class="minimize"></div>
